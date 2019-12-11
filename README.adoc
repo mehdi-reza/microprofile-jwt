@@ -31,11 +31,11 @@ curl --data "grant_type=password&client_id=mobile-app&username=4210143080901&pas
 ----
 
 ## Run
-mvn clean package quarkus:dev
+`mvn clean package quarkus:dev`
 
 ## Build GraalVM native image
-Run `mvn clean package -Pnative`
+`mvn clean package -Pnative`
 
 ## Build Docker image
-Run `mvn clean package -Pdocker`
+`mvn clean package -Pdocker`
 
