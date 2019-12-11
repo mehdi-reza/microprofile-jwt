@@ -5,8 +5,9 @@ Provide implementation of UserModelProvider, a sample provider is available whic
 
 Integrate DynamoDB, postgresql, MySQL or whatever you like to return UserModel and a token will be returned if password matches.
 
-`Build GraalVM native image`
-mvn clean package -Pnative
+## Build GraalVM native image
+`mvn clean package -Pnative`
 
-`Docker`
-mvn clean package -Pdocker
+## Build Docker image
+`mvn clean package -Pdocker`
+
