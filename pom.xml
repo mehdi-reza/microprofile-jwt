@@ -109,6 +109,7 @@
 								<configuration>
 									<enableHttpUrlHandler>true</enableHttpUrlHandler>
 									<containerRuntime>docker</containerRuntime>
+									<additionalBuildArgs>-H:IncludeResources=META-INF/resources/*.pem</additionalBuildArgs>
 								</configuration>
 							</execution>
 						</executions>
