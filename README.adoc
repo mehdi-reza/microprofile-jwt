@@ -1,0 +1,41 @@
+# Microprofile JWT-RBAC
+A Microprofile JWT RBAC sample which includes endpoint to get token and a sample secure endpoint
+
+Provide implementation of UserModelProvider, a sample provider is available which returns a null UserModel, which results an error when calling /oauth/token endpoint "User not found".
+
+Integrate DynamoDB, postgresql, MySQL or whatever you like to return UserModel and a token will be returned if password matches.
+
+## RSA Private/Public key
+Use openssl tool to create your own key pair and override META-IF/resources/(public|private).pem 
+
+Following properties are availabe in application.properties
+
+----
+mp.jwt.verify.publickey.location=/META-INF/resources/public.pem
+mp.jwt.verify.issuer=https://quarkus.io/using-jwt-rbac
+quarkus.smallrye-jwt.enabled=true
+
+expires_in = 300
+client_id = mobile-app
+quarkus.log.min-level = ALL
+quarkus.log.syslog.enable = true
+
+quarkus.log.category."io.smallrye.jwt".level = ALL
+----
+
+## Get Token
+----
+curl --data "grant_type=password&client_id=mobile-app&username=4210143080901&password=6152" http://localhost:8080/oauth/token
+
+{"access_token":"eyJraWQiOiIqKioqKi5wZW0iLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3F1YXJrdXMuaW8vdXNpbmctand0LXJiYWMiLCJqdGkiOiI1NmM5MjE2Yy05ODM5LTRkYjctOWJkNS0zMWY1YmQxODVhZDgiLCJzdWIiOiJtZWhkaUB2ZW50dXJkaXZlLmNvbSIsInVwbiI6Im1laGRpIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiTWVoZGkgUmF6YSIsImF1ZCI6Im1vYmlsZS1hcHAiLCJncm91cHMiOlsicm9sZTEiLCJyb2xlMiJdLCJpYXQiOjE1NzYwNDg1NDYsImF1dGhfdGltZSI6Ik51bWVyaWNEYXRlezE1NzYwNDg1NDYgLT4gRGVjIDExLCAyMDE5IDEyOjE1OjQ2IFBNIFBLVH0iLCJleHAiOjE1NzYwNDg4NDZ9.TaA6R7Kt1cF4eEYOhBiYEnCSfEutRUwfNFmw6E1e-qZTh-bcjKldLTzCZ8bG0ompiNYOTUwl3xbbC4PF1F45Xa8Tm18BMC0Igm6ZEKKV1IZUO2z_xxDjrhAFxiORu2L7X-wbXGBAJ9NoqgXFhiqlso5w4Ck69p0kltOJgP2OU1bUXBtzvGcx0rDi27I8Q9VYyOh-AEX4AuSznrMgLDtVE4ifs4fxOj7zPfl5XLntPWE6hyFZbJnGfCQMWinbRA0vFgd9K8wnI0Fw8hXZzOShAZ0KjjlLXok5hEGq5PhUh-H02DBlHAXRPqmydRX5VD_uinJXoQh1NaEP6NKm2dERIQ","exp":1576048846,"jti":"56c9216c-9839-4db7-9bd5-31f5bd185ad8"} // <2>
+----
+
+## Run
+`mvn clean package quarkus:dev`
+
+## Build GraalVM native image
+`mvn clean package -Pnative`
+
+## Build Docker image
+`mvn clean package -Pdocker`
+
